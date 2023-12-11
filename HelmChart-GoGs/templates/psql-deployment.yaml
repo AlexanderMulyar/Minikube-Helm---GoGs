@@ -1,0 +1,31 @@
+# PSQL Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: postgres
+    owner: Gallian
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: "postgres:latest"
+        env:
+        - name: POSTGRES_USER
+          value: "{{ .Values.gogs.db.user }}"
+        - name: POSTGRES_PASSWORD
+          value: "{{ .Values.gogs.db.password }}"
+        - name: POSTGRES_DB
+          value: "{{ .Values.gogs.db.name }}"
+        ports:
+        - containerPort: 5432
+

@@ -1,0 +1,36 @@
+# GoGs Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gogs-helm-chart.fullname" . }}
+  labels:
+    app: gogs
+    owner: Gallian
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gogs
+  template:
+    metadata:
+      labels:
+        app: gogs
+    spec:
+      containers:
+      - name: gogs
+        image: "{{ .Values.gogs.image.repository }}:{{ .Values.gogs.image.tag }}"
+        env:
+        - name: DB_TYPE
+          value: "{{ .Values.gogs.db.type }}"
+        - name: DB_HOST
+          value: "{{ .Values.gogs.db.host }}"
+        - name: DB_PORT
+          value: "{{ .Values.gogs.db.port }}"
+        - name: DB_NAME
+          value: "{{ .Values.gogs.db.name }}"
+        - name: DB_USER
+          value: "{{ .Values.gogs.db.user }}"
+        - name: DB_PASSWD
+          value: "{{ .Values.gogs.db.password }}"
+        ports:
+        - containerPort: 3000

@@ -1,0 +1,15 @@
+# GoGs Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gogs-helm-chart.fullname" . }}
+  labels:
+    app: gogs
+    owner: Gallian
+spec:
+  selector:
+    app: gogs
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -1,0 +1,11 @@
+gogs:
+  image:
+    repository: gallianzeon/gogs
+    tag: latest
+  db:
+    type: postgres
+    host: postgres-service
+    port: "5432"
+    name: gogs
+    user: gogs
+    password: gogs
